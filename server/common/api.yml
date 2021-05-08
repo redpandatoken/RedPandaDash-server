@@ -1,0 +1,41 @@
+openapi: 3.0.1
+info:
+  title: redpanda-report-server
+  description: Report stats for Redpanda
+  version: 1.0.0
+servers:
+  - url: /api/v1
+tags:
+  - name: Stats
+    description: Simple example endpoints
+  - name: Specification
+    description: The swagger API specification
+paths:
+  /stats:
+    get:
+      tags:
+        - Stats
+      description: Fetch all stats
+      responses:
+        200:
+          description: Returns all stats
+          content: {}
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification
+          content: {}
+components:
+  schemas:
+    ExampleBody:
+      title: example
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: no_stress
