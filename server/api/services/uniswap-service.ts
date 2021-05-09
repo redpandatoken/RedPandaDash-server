@@ -20,7 +20,7 @@ const GET_DAY_DATA = gql`
       first: 3
       orderBy: date
       orderDirection: desc
-      where: { token: "0x29502fe4d233ef0b45c3647101fa1252ce0634bd" }
+      where: { token: "0x514cdb9cd8a2fb2bdcf7a3b8ddd098caf466e548" }
     ) {
       date
       priceUSD
@@ -29,7 +29,7 @@ const GET_DAY_DATA = gql`
       dailyVolumeUSD
       totalLiquidityUSD
     }
-    pair(id: "0x30c86753b88d430436b8a6ef23b4c6faa930ad7d") {
+    pair(id: "0xecbc16e251846d1d37c140d83319690783d0d756") {
       token1Price
       reserveUSD
     }
