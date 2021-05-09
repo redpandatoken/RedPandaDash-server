@@ -19,11 +19,7 @@ export default class ExpressServer {
 
     app.use(
       cors({
-        origin: [
-          'http://localhost:8001',
-          'https://www.frogedashboard.app',
-          'https://froge-report-client-git-dev-hogedev29.vercel.app',
-        ],
+        origin: ['http://localhost:8000'],
       })
     );
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || '100kb' }));

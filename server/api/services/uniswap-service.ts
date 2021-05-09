@@ -31,6 +31,7 @@ const GET_DAY_DATA = gql`
     }
     pair(id: "0x30c86753b88d430436b8a6ef23b4c6faa930ad7d") {
       token1Price
+      reserveUSD
     }
   }
 `;

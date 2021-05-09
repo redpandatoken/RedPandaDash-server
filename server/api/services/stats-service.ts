@@ -38,6 +38,7 @@ export class StatsService {
               priceUSD,
             };
           }),
+          totalLiquidityUSD: uniData.pair.reserveUSD,
           price,
           marketCap: this.calculateMarketCap(price, circulatingSupply),
           supply: {
