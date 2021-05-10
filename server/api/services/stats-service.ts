@@ -16,6 +16,7 @@ export class StatsService {
       ethplorerService.getTokenInfo(),
       ethplorerService.getTokenTopHolders(20),
       ethScanService.getBurnedBalance(),
+      ethScanService.getDonationsBalance(),
       //coingeckoService.getCoinInfo(),
     ])
       .then((result) => {
@@ -23,6 +24,7 @@ export class StatsService {
         const tokenInfo: any = result[1];
         const topTokenHolders = result[2];
         const burnBalance = result[3];
+        const donationBalance = result[4];
         // const coingeckoData = result[5];
         const price = uniData.pair.token1Price * uniData.bundle.ethPrice;
         const circulatingSupply = TOTAL_SUPPLY - burnBalance.result / BILLION;
@@ -45,10 +47,13 @@ export class StatsService {
             total: TOTAL_SUPPLY,
             circulating: circulatingSupply,
           },
+          donations: {
+            balance: (donationBalance.result / BILLION) * price,
+          },
           burn: { balance: burnBalance.result / BILLION },
           topHolders: {
             totalShare: this.calculateTotalShare(topTokenHolders.holders),
-            holders: topTokenHolders.holders,
+            holders: this.calculateTopHolders(topTokenHolders.holders),
           },
           tokenInfo: {
             holders: tokenInfo.holdersCount,
@@ -64,14 +69,27 @@ export class StatsService {
         return err;
       });
   }
+  calculateTopHolders(holders: any[]): any[] {
+    return holders.filter((e) => {
+      return (
+        e.address !== process.env.BURN_ADDRESS &&
+        e.address !== process.env.DONATION_ADDRESS
+      );
+    });
+  }
 
   // Calculate total share minus the burn address
   calculateTotalShare(holders: any[]): number {
-    return (
-      holders.reduce((prev, current) => {
+    return holders
+      .filter((e) => {
+        return (
+          e.address !== process.env.BURN_ADDRESS &&
+          e.address !== process.env.DONATION_ADDRESS
+        );
+      })
+      .reduce((prev, current) => {
         return prev + current.share;
-      }, 0) - holders[0].share
-    );
+      }, 0);
   }
 
   calculateMarketCap(price: number, circulatingSupply: number): number {

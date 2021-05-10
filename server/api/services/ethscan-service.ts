@@ -20,6 +20,11 @@ export class EthscanService {
     return this.getAccountBalance(process.env.BURN_ADDRESS ?? '');
   }
 
+  async getDonationsBalance(): Promise<any> {
+    L.info('fetch donation');
+    return this.getAccountBalance(process.env.DONATION_ADDRESS ?? '');
+  }
+
   async getAccountBalance(accountAddress: string): Promise<any> {
     L.info('fetch account balance for' + accountAddress);
 
